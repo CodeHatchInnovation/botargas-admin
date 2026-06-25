@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Administrativo - Solutions Shield</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-body">
+
+    <!-- CONTENEDOR PRINCIPAL DEL LOGIN -->
+    <div class="login-container">
+        <!-- Logo institucional que te regresa al inicio si le das clic -->
+        <div class="login-logo">
+            <a href="index.html">
+                <img src="botar.png" alt="Logo Solutions Shield" class="body-logo">
+            </a>
+        </div>
+
+        <h2>Panel de Administración</h2>
+        <p class="login-subtitle">Introduce tus credenciales para acceder</p>
+
+        <!-- FORMULARIO DE ACCESO -->
+        <form id="login-form">
+            <div class="form-group">
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="usuario" required placeholder="usuario" autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" required placeholder="••••••••" autocomplete="current-password">
+            </div>
+
+            <button type="submit" class="btn-iniciar-sesion">Iniciar Sesión</button>
+        </form>
+        
+        <!-- Enlace discreto para regresar al catálogo si te equivocaste de ruta -->
+        <div class="login-footer-link">
+            <a href="productos.html">← Volver al catálogo</a>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE VALIDACIÓN TEMPORAL (FRONT-END) -->
+    <script>
+        window.onload = function() {
+            const formLogin = document.getElementById('login-form');
+
+            if (formLogin) {
+                formLogin.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Evita que la página se refresque
+                    
+                    const usuario = document.getElementById('usuario').value;
+                    const contrasena = document.getElementById('password').value;
+
+                    // Validación de prueba local (¡Luego la conectamos a algo más robusto!)
+                    if (usuario === "admin" && contrasena === "1234") {
+                        alert("¡Acceso concedido! Bienvenido al panel.");
+                        window.location.href = 'admin-dashboard.html';
+                        // Aquí redirigiremos a la interfaz del administrador (ej. admin-dashboard.html)
+                        // window.location.href = 'admin-dashboard.html'; 
+                    } else {
+                        alert("Usuario o contraseña incorrectos. Intenta de nuevo.");
+                    }
+                });
+            }
+        };
+    </script>
+</body>
+</html>

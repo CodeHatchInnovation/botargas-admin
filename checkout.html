@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra - Botargas Shopping</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-left">
+            <div class="back-container">
+                <a href="carrito.html" class="back-btn">← Volver</a>
+            </div>
+        </div>
+
+        <div class="header-center">
+            <a href="index.html" class="logo-link">
+                <img src="botar.png" alt="Logo Solutions Shield" class="header-logo">
+            </a>
+        </div>
+
+        <div class="header-right">
+            <div class="menu-container">
+                <button class="menu-btn">☰ Menú</button>
+                <nav class="dropdown-menu">
+                    <a href="index.html">Inicio</a>
+                    <a href="productos.html">Productos</a>
+                    <a href="contacto.html">Contacto</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="checkout-container">
+            <h2>Datos de Envío </h2>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo:</label>
+                    <input type="text" id="nombre" required placeholder="Ej. Juan Pérez López">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" id="telefono" required placeholder="Ej. 5512345678">
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo Electrónico:</label>
+                    <input type="email" id="correo" required placeholder="ejemplo@correo.com">
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección de Entrega:</label>
+                    <textarea id="direccion" rows="3" required placeholder="Calle, Número, Colonia, Municipio..."></textarea>
+                </div>
+                <button type="submit" class="btn-enviar-compra">Enviar Pedido</button>
+            </form>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal-box">
+            <div class="modal-icon">🎉</div>
+            <h3>¡Compra Exitosa!</h3>
+            <p>Tu pedido ha sido procesado de manera correcta. Pronto nos pondremos en contacto contigo.</p>
+            <button class="btn-modal-close" id="btn-entendido">Entendido</button>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // Control Menú
+            const botonMenu = document.querySelector('.menu-btn');
+            const menuDesplegable = document.querySelector('.dropdown-menu');
+            if (botonMenu && menuDesplegable) {
+                botonMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    menuDesplegable.style.display = (menuDesplegable.style.display === 'block' || menuDesplegable.style.display === 'flex') ? 'none' : 'flex';
+                });
+                document.addEventListener('click', function() { menuDesplegable.style.display = 'none'; });
+            }
+
+            // Control Formulario y Modal
+            const formulario = document.getElementById('checkout-form');
+            const modal = document.getElementById('success-modal');
+            const btnEntendido = document.getElementById('btn-entendido');
+
+            if (formulario && modal) {
+                formulario.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    modal.classList.add('active');
+                    localStorage.removeItem('cantidadCarrito');
+                });
+            }
+            if (btnEntendido) {
+                btnEntendido.addEventListener('click', function() {
+                    modal.classList.remove('active');
+                    window.location.href = 'productos.html';
+                });
+            }
+        };
+    </script>
+</body>
+</html>

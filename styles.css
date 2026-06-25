@@ -1,0 +1,1337 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+/* Encabezado y Menú Desplegable (Superior Derecha) */
+header {
+    display: flex;
+    justify-content: flex-end; /* Por defecto los elementos se alinean a la derecha */
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+header:has(.back-container) {
+    justify-content: space-between;
+}
+
+.menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-btn {
+    background-color: #ff6600; /* Naranja */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.menu-btn:hover {
+    background-color: #e05500;
+}
+
+/* Efecto para mostrar el menú al pasar el mouse (Hover) */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0; /* Se alinea justo al borde derecho del botón */
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+    border-radius: 5px;
+    z-index: 10; /* Asegura que flote por encima de todo */
+    border: 1px solid #ff6600;
+}
+
+.dropdown-menu a {
+    color: #333333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #ff6600;
+    color: white;
+}
+
+.menu-container:hover .dropdown-menu {
+    display: block;
+}
+
+/* Contenedor Principal */
+.main-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Logo y Nombre */
+.brand-header {
+    margin-bottom: 40px;
+}
+
+.logo {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.brand-header h1 {
+    font-size: 2.5rem;
+    color: #ff6600;
+    text-transform: uppercase;
+}
+
+/* ¿Quiénes Somos? */
+.about-us {
+    background-color: #ff6600;
+    color: #ffffff;
+    padding: 40px 20px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+
+.about-us h2 {
+    margin-bottom: 15px;
+    font-size: 2rem;
+}
+
+/* Grid para Misión, Visión y Valores */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    text-align: left;
+}
+
+.info-box {
+    background-color: #f9f9f9;
+    border-left: 5px solid #ff6600;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Alineaciones específicas */
+.left {
+    grid-column: 1;
+}
+
+.right {
+    grid-column: 2;
+}
+
+.info-box h3 {
+    color: #ff6600;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.info-box ul {
+    margin-left: 20px;
+}
+
+/* Pie de página */
+footer {
+    background-color: #333333;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    margin-top: 60px;
+    font-size: 0.9rem;
+}
+
+/* Responsivo para celulares */
+@media (max-width: 768px) {
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    .left, .right {
+        grid-column: auto;
+    }
+}
+/* --- ESTILOS ADICIONALES PARA LA PÁGINA DE PRODUCTOS --- */
+
+/* Rejilla para los productos: muestra 4 columnas en pantallas grandes */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Tarjeta individual de producto */
+.product-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Efecto al pasar el mouse por encima del producto */
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(255, 102, 0, 0.15);
+    border-color: #ff6600;
+}
+
+/* Imagen del producto */
+.product-img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain; /* Ajusta la imagen sin deformarla */
+    border-radius: 4px;
+    background-color: #f9f9f9; /* Fondo gris claro mientras carga la imagen */
+    margin-bottom: 15px;
+}
+
+/* Nombre del producto */
+.product-name {
+    font-size: 1.1rem;
+    color: #333333;
+    margin-bottom: 8px;
+    height: 45px; /* Altura fija para que alineen parejos */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Precio destacado en naranja */
+.product-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ff6600;
+}
+.back-container {
+    display: inline-block;
+}
+
+.back-btn {
+    color: #ff6600; /* Color naranja oficial */
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 15px;
+    border: 1px solid #ff6600;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Efecto cuando pasas el mouse por encima de la flecha */
+.back-btn:hover {
+    background-color: #ff6600;
+    color: #ffffff;
+}
+/* === ESTILOS PARA EL BOTÓN VOLVER === */
+.back-container {
+    display: inline-block;
+}
+
+.back-btn {
+    color: #ff6600; /* Naranja oficial de Botargas Shopping */
+    text-decoration: none; /* Quita el subrayado feo */
+    font-size: 18px; /* Un poco más grande para que sea legible */
+    font-weight: bold; /* Letra negrita */
+    padding: 8px 15px; /* Espaciado interno para que parezca botón */
+    border: 2px solid #ff6600; /* Borde naranja sólido */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: all 0.3s ease; /* Transición suave para el efecto hover */
+    margin-right: auto; /* Truco para asegurar que se empuje al inicio del header flex */
+}
+
+/* Efecto al pasar el mouse (Hover) */
+.back-btn:hover {
+    background-color: #ff6600; /* Fondo naranja */
+    color: #ffffff; /* Texto blanco */
+}
+/* --- ESTILOS PARA LA PÁGINA DETALLE DE PRODUCTO --- */
+
+/* Alineación del carrito y el menú juntos */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Contenedor del Carrito */
+.cart-container {
+    position: relative;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* La burbuja naranja del contador arriba del carrito */
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: #ff6600;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 7px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+}
+
+/* Estructura del Detalle del Producto */
+.detail-container {
+    display: block; /* Estructura limpia lineal/bloques */
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.detail-img-box {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.detail-img {
+    max-width: 100%;
+    height: 350px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.detail-price {
+    font-size: 2rem;
+    color: #ff6600;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.detail-info-box h3 {
+    color: #333333;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.detail-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #666666;
+    margin-bottom: 30px;
+}
+
+/* Botones de Acción */
+.action-buttons {
+    display: block;
+}
+
+.btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s;
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
+
+/* Botón Comprar Ahora (Naranja sólido) */
+.btn-primary {
+    background-color: #ff6600;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #e05500;
+}
+
+/* Botón Agregar al Carrito (Borde Naranja) */
+.btn-secondary {
+    background-color: transparent;
+    color: #ff6600;
+    border: 2px solid #ff6600;
+}
+
+.btn-secondary:hover {
+    background-color: #ff6600;
+    color: white;
+}
+/* Obliga a que toda la tarjeta de producto sea cliqueable */
+.product-card a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+}
+
+/* Por si acaso la imagen bloquea el clic, este truco hace que el enlace la traspase */
+.product-img {
+    pointer-events: none; 
+}
+  .carrito-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .btn-volver {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .carrito-items {
+            margin-top: 20px;
+        }
+        .carrito-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .item-img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .item-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .item-price {
+            color: #666;
+            margin-top: 4px;
+        }
+        .btn-eliminar {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .btn-eliminar:hover {
+            background: #e60000;
+        }
+        .carrito-total {
+            text-align: right;
+            margin-top: 25px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #d35400; /* Reemplaza por tu color naranja principal */
+        }
+        .carrito-vacio {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-size: 1.2rem;
+        }
+        .btn-buy {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    /* Conserva aquí tus demás estilos como padding, background-color, etc. */
+}
+/* --- ESTILOS PARA LOS BOTONES DE PRODUCTO (CORRECCIÓN) --- */
+
+/* Contenedor para que no se encimen */
+.product-buttons {
+    display: flex;
+    gap: 15px; /* Separación entre ellos */
+    margin-top: 20px;
+    align-items: center; /* Centrado vertical */
+}
+
+/* Base para ambos botones (tamaño, bordes, fuente) */
+.btn-add-cart, .btn-comprar {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+}
+
+/* Estilo del botón 1: Agregar al Carrito (Borde Naranja) */
+.btn-add-cart {
+    background-color: transparent;
+    border: 2px solid #ff6600; /* Color naranja */
+    color: #ff6600;
+}
+
+.btn-add-cart:hover {
+    background-color: #ff660010; /* Fondo naranja muy tenue al pasar el mouse */
+}
+
+/* Estilo del botón 2: Comprar Ahora (Naranja Relleno) */
+.btn-comprar {
+    background-color: #ff6600; /* Naranja relleno */
+    border: 2px solid #ff6600;
+    color: white;
+}
+
+.btn-comprar:hover {
+    background-color: #e65c00; /* Naranja más oscuro al pasar el mouse */
+    border-color: #e65c00;
+}
+/* --- ESTILOS PARA LAS FILAS DINÁMICAS DEL CARRITO --- */
+
+/* Cada fila de producto */
+.carrito-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* Contenedor de Imagen + Texto */
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Miniatura de la botarga */
+.item-img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+/* Nombre del producto comprado */
+.item-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Precio unitario */
+.item-price {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+/* Botón Eliminar individual (Rojo sutil) */
+.btn-eliminar {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-eliminar:hover {
+    background-color: #ff1a1a;
+}
+
+/* Mensaje cuando no hay nada comprado */
+.carrito-vacio {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1.2rem;
+    color: #777;
+}
+/* --- DISEÑO DEL HEADER Y MENÚ SUPERIOR --- */
+.main-header {
+    background-color: #222222; /* El color oscuro que ya tienes de fondo */
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Control del tamaño y animación del logo real */
+.main-logo {
+    height: 45px; /* Altura ideal para la barra de navegación */
+    width: auto;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.main-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Texto del enlace del carrito en el menú */
+.nav-cart-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* --- DISEÑO DEL NUEVO BOTÓN "VOLVER AL CATÁLOGO" --- */
+.btn-volver {
+    display: inline-block;
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #444;
+    background-color: #f8f9fa;
+    border: 1px solid #dddddd;
+    border-radius: 30px; /* Forma de óvalo/píldora limpia */
+    text-decoration: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.btn-volver:hover {
+    background-color: #ff6600; /* Cambia al naranja característico de tu tienda */
+    color: white;
+    border-color: #ff6600;
+    box-shadow: 0 4px 10px rgba(255, 102, 0, 0.25);
+    transform: translateX(-4px); /* Pequeño desplazamiento de retroceso */
+}
+/* --- ESTILO PARA EL BOTÓN INFORMATIVO DEL CARRITO --- */
+.btn-carrito-nav {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #333;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 25px; /* Misma forma de píldora que el de volver */
+    text-decoration: none; /* Le quita la línea morada de abajo */
+    margin-left: 10px; /* Separación horizontal del botón volver */
+    transition: all 0.3s ease;
+}
+
+/* El número contador dentro del botón */
+#cart-count {
+    background-color: #ff6600; /* Naranja Solutions Shield */
+    color: white;
+    padding: 2px 8px;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    margin-left: 5px;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+/* Efecto hover al pasar el cursor */
+.btn-carrito-nav:hover {
+    background-color: #e9e9e9;
+    border-color: #ccc;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+/* Mueve el botón del carrito a la esquina derecha del encabezado del catálogo */
+.cart-catalog-container {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Por si acaso estás usando pantallas pequeñas o celulares */
+@media (max-width: 600px) {
+    .brand-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .cart-catalog-container {
+        position: static;
+        transform: none;
+        margin-top: 15px;
+    }
+}
+
+/* --- ESTILOS UNIFICADOS PARA EL CARRITO ÚNICO --- */
+
+/* 1. Contenedor del menú para alinear los elementos */
+.menu-container {
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    gap: 15px;          /* Espacio entre carrito y menú */
+    position: relative; /* Para el posicionamiento del menú desplegable */
+    z-index: 100;       /* Asegura que el menú esté arriba */
+}
+
+/* 2. El estilo tipo "píldora" para el carrito en el catálogo */
+.btn-carrito-nav {
+    display: inline-flex;  /* Usa flex para alinear icono y texto internamente */
+    align-items: center;
+    padding: 10px 20px;    /* Ajuste de relleno para que se vea sustancial */
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 30px;      /* Forma de píldora limpia */
+    text-decoration: none;    /* Le quita la línea subrayada */
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* 3. Animación ligera al pasar el mouse */
+.btn-carrito-nav:hover {
+    background-color: #e9e9e9;
+    border-color: #ccc;
+    transform: scale(1.03);   /* Un pequeño brinco visual sutil */
+}
+
+/* 4. La burbuja naranja del número de productos */
+#cart-count {
+    background-color: #ff6600; /* Naranja Solutions Shield */
+    color: white;
+    padding: 2px 10px;        /* Un poco más de ancho */
+    border-radius: 50%;        /* Lo hace completamente redondo */
+    font-size: 0.9rem;
+    margin-left: 8px;          /* Separación del texto */
+    display: inline-block;
+    min-width: 1.5em;          /* Ancho mínimo para números de una cifra */
+    text-align: center;
+}
+
+/* Asegura que el icono de carrito se alinee bien */
+.btn-carrito-nav::before {
+    margin-right: 5px;
+}
+/* --- CORRECCIÓN DEL MENÚ DESPLEGABLE --- */
+
+/* Asegura que el contenedor alinee todo en fila y no rompa los botones */
+.menu-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative; /* Mantiene la referencia para el despliegue */
+}
+
+/* El botón de Menú naranja debe mantener su forma de bloque */
+.menu-btn {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block; /* Evita que se colapse */
+}
+
+/* La lista corregida: se alineará a la derecha, justo debajo del botón naranja */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;          /* Cae justo abajo de la barra */
+    right: 0;           /* Se alinea perfectamente con el borde derecho de la pantalla */
+    left: auto;         /* Cancela cualquier alineación vieja a la izquierda */
+    background-color: white;
+    border: 1px solid #ff6600;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: none;      /* Tu JavaScript se encargará de cambiar esto a flex o block al dar clic */
+    flex-direction: column;
+    min-width: 160px;
+    z-index: 2000;      /* Se asegura de flotar por encima de las fotos de las botargas */
+    overflow: hidden;
+}
+
+/* Estilo para los enlaces de adentro */
+.dropdown-menu a {
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.95rem;
+    text-align: left;
+    border-bottom: 1px solid #f5f5f5;
+    display: block;
+}
+
+/* Cambio de color al pasar el mouse por las opciones */
+.dropdown-menu a:hover {
+    background-color: #ff6600;
+    color: white;
+}
+
+.btn-comprar-ahora {
+    display: inline-block;
+    background-color: #ff6600;
+    color: white;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.2s, transform 0.2s;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-comprar-ahora:hover {
+    background-color: #e65c00;
+    transform: scale(1.02);
+}
+
+/* ==========================================
+   ESTILOS PARA LA BARRA SUPERIOR (HEADER)
+   ========================================== */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.header-left, .header-center, .header-right {
+    flex: 1;
+    display: flex;
+}
+
+.header-left { justify-content: flex-start; }
+.header-center { justify-content: center; }
+.header-right { justify-content: flex-end; gap: 15px; }
+
+.back-btn {
+    text-decoration: none;
+    font-weight: bold;
+    color: #333;
+}
+
+.header-logo {
+    height: 55px;
+    width: auto;
+    display: block;
+}
+
+.logo-link {
+    display: block;
+    transition: transform 0.2s;
+}
+
+.logo-link:hover {
+    transform: scale(1.05);
+}
+
+
+/* ==========================================
+   ESTILOS DEL FORMULARIO (CHECKOUT)
+   ========================================== */
+.checkout-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.checkout-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #ff6600;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.form-group input, .form-group textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #ff6600;
+    outline: none;
+}
+
+.btn-enviar-compra {
+    width: 100%;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-enviar-compra:hover {
+    background-color: #e65c00;
+}
+
+
+/* ==========================================
+   ESTILOS DE LA VENTANA EMERGENTE (MODAL)
+   ========================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    max-width: 400px;
+    width: 90%;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-overlay.active .modal-box {
+    transform: scale(1);
+}
+
+.modal-icon {
+    font-size: 4rem;
+    color: #4cd137;
+    margin-bottom: 15px;
+}
+
+.btn-modal-close {
+    margin-top: 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+/* ==========================================
+   ESTILOS PARA LA PÁGINA DE CONTACTO
+   ========================================== */
+.contacto-container {
+    max-width: 500px;
+    margin: 50px auto;
+    background: white;
+    padding: 40px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center; /* Centra el título y el logo del cuerpo */
+}
+
+.contacto-logo-body {
+    margin-bottom: 15px;
+}
+
+.body-logo {
+    height: 80px; /* Un poco más grande para el cuerpo */
+    width: auto;
+}
+
+.contacto-container h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 30px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Línea decorativa naranja debajo de "Contáctanos" */
+.contacto-container h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #ff6600;
+    margin: 8px auto 0 auto;
+    border-radius: 2px;
+}
+
+.contacto-info {
+    text-align: left; /* Los datos se alinean a la izquierda para leerse mejor */
+    margin-top: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.info-item:last-child {
+    border-bottom: none; /* Quita la línea al último elemento */
+}
+
+.info-item .icon {
+    font-size: 1.8rem;
+    background-color: #fff0e6; /* Fondo naranja muy bajito */
+    padding: 10px;
+    border-radius: 50%;
+    min-width: 45px;
+    text-align: center;
+}
+
+.info-item strong {
+    display: block;
+    color: #444;
+    font-size: 1rem;
+}
+
+.info-item p {
+    margin: 2px 0 0 0;
+    color: #666;
+    font-size: 1.05rem;
+}
+
+/* ==========================================
+   ESTILOS PARA LA PÁGINA DE LOGIN (ADMIN)
+   ========================================== */
+.login-body {
+    background-color: #f4f6f9; /* Fondo gris claro tecnológico */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.login-container {
+    background: white;
+    width: 100%;
+    max-width: 400px;
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.login-logo {
+    margin-bottom: 20px;
+}
+
+.login-container h2 {
+    margin: 10px 0 5px 0;
+    color: #333;
+    font-size: 1.6rem;
+}
+
+.login-subtitle {
+    color: #777;
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+}
+
+.btn-iniciar-sesion {
+    width: 100%;
+    background-color: #ff6600; /* Tu naranja institucional */
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 10px;
+}
+
+.btn-iniciar-sesion:hover {
+    background-color: #e65c00;
+}
+
+.btn-iniciar-sesion:active {
+    transform: scale(0.98); /* Pequeño efecto de hundido al clickear */
+}
+
+.login-footer-link {
+    margin-top: 25px;
+}
+
+.login-footer-link a {
+    text-decoration: none;
+    color: #ff6600;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.login-footer-link a:hover {
+    color: #e65c00;
+}
+/* ==========================================
+   ESTILOS PARA EL PANEL DE ADMINISTRADOR
+   ========================================== */
+.admin-main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.admin-title-container {
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 15px;
+}
+
+.admin-title-container h2 {
+    color: #333;
+    margin: 0 0 5px 0;
+}
+
+.admin-badge {
+    background-color: #333;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* Rejilla de productos */
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+/* Tarjeta individual del admin */
+.admin-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    border: 1px solid #eaeaea;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-card-img {
+    background-color: #fcfcfc;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 180px;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.admin-card-img img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.admin-card-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.admin-card-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.admin-stock {
+    margin: 0 0 15px 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.admin-stock span {
+    font-weight: bold;
+    color: #ff6600; /* Naranja para resaltar el número de stock */
+}
+
+/* Botones de acción del administrador */
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto; /* Empuja los botones siempre al fondo */
+}
+
+.btn-action {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-editar {
+    background-color: #3498db; /* Azul corporativo para editar */
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #2980b9;
+}
+
+.btn-eliminar {
+    background-color: #e74c3c; /* Rojo de alerta para eliminar */
+    color: white;
+}
+
+.btn-eliminar:hover {
+    background-color: #c0392b;
+}
+
+/* ==========================================
+   ESTILOS PARA EL MODAL DE EDICIÓN (ADMIN)
+   ========================================== */
+.modal-edit-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-edit-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-edit-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.modal-edit-box h3 {
+    margin-top: 0;
+    border-bottom: 2px solid #ff6600;
+    padding-bottom: 10px;
+    color: #333;
+}
+
+.edit-actions-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-save { 
+    background-color: #2ecc71; 
+    color: white; 
+}
+
+.btn-save:hover { 
+    background-color: #27ae60; 
+}
+
+.btn-cancel { 
+    background-color: #95a5a6; 
+    color: white; 
+}
+
+.btn-cancel:hover { 
+    background-color: #7f8c8d; 
+}
+
+/* Input deshabilitado para el precio con ganancia automática */
+.input-readonly {
+    background-color: #f5f5f5;
+    color: #555;
+    font-weight: bold;
+    cursor: not-allowed;
+}

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control - Solutions Shield</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-left">
+            <div class="back-container">
+                <a href="index.html" class="back-btn">← Cerrar Sesión</a>
+            </div>
+        </div>
+        <div class="header-center">
+            <div class="logo-link">
+                <img src="botar.png" alt="Logo Solutions Shield" class="header-logo">
+            </div>
+        </div>
+        <div class="header-right">
+            <span class="admin-badge">⚡ Administrador</span>
+        </div>
+    </header>
+
+  <main class="admin-main">
+    <div class="admin-title-container">
+        <h2>Gestión de Inventario de Botargas</h2>
+    </div>
+
+    <div class="admin-actions" style="margin: 0 0 20px 20px;">
+        <button id="btn-abrir-modal" style="background-color: #2ecc71; color: white; padding: 12px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1em; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            ➕ Agregar Nuevo Producto
+        </button>
+    </div>
+
+    <div id="modal-nuevo-producto" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center;">
+        <div style="background-color: white; padding: 25px; border-radius: 8px; width: 400px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; font-family: sans-serif;">
+            
+            <h3 style="margin-top: 0; color: #2c3e50; border-bottom: 2px solid #ebd4c0; padding-bottom: 10px;">Agregar Nueva Botarga</h3>
+            
+            <label style="display: block; margin-top: 15px; font-weight: bold; color: #34495e;">Nombre del Producto:</label>
+            <input type="text" id="new-nombre" placeholder="Ej. Botarga de Pikachu" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+
+            <label style="display: block; margin-top: 15px; font-weight: bold; color: #34495e;">URL o Nombre de la Imagen:</label>
+            <input type="text" id="new-imagen" placeholder="Ej. pikachu.png o botar.png" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+
+            <label style="display: block; margin-top: 15px; font-weight: bold; color: #34495e;">Costo Inicial de Fábrica ($):</label>
+            <input type="number" id="new-costo" placeholder="Ej. 583.33" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+
+            <label style="display: block; margin-top: 15px; font-weight: bold; color: #34495e;">Stock Inicial:</label>
+            <input type="number" id="new-stock" value="12" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+
+            <label style="display: block; margin-top: 15px; font-weight: bold; color: #34495e;">Descripción del Producto:</label>
+            <textarea id="new-descripcion" placeholder="Ej. Material premium inflable, ideal para fiestas infantiles..." style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; height: 80px; resize: none;"></textarea>
+
+            <div style="margin-top: 25px; display: flex; justify-content: space-between;">
+                <button id="btn-cerrar-modal" style="background-color: #e74c3c; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Cancelar</button>
+                <button id="btn-guardar-nuevo" style="background-color: #2ecc71; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Guardar Producto</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="contenedor-alertas" style="margin: 20px; padding: 15px; background: #fff3cd; border-left: 5px solid #ffc107; display: none;">
+    <h4>⚠️ Avisos de Inventario Bajo:</h4>
+    <ul id="lista-alertas"></ul>
+</div>
+
+    <div class="admin-grid" id="admin-grid"></div>
+</main>
+
+    <div class="modal-edit-overlay" id="edit-modal">
+        <div class="modal-box modal-edit-box">
+            <h3>Editar Producto</h3>
+            <form id="edit-form">
+                <input type="hidden" id="edit-id">
+
+                <div class="form-group">
+                    <label for="edit-nombre">Nombre del Producto:</label>
+                    <input type="text" id="edit-nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-precio">Costo Inicial ($):</label>
+                    <input type="number" id="edit-precio" required min="0" step="0.01" placeholder="0.00">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-precio-ganancia">Precio al Público (Costo + 20% Ganancia):</label>
+                    <input type="text" id="edit-precio-ganancia" class="input-readonly" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-stock">Cantidad en Stock:</label>
+                    <input type="number" id="edit-stock" required min="0">
+                </div>
+                
+                <div class="form-group">
+                <label for="edit-descripcion">Descripción:</label>
+                <textarea id="edit-descripcion" style="width: 100%; height: 80px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;"></textarea>
+            </div>
+
+                <div class="edit-actions-container">
+                    <button type="submit" class="btn-action btn-save">Guardar Cambios</button>
+                    <button type="button" class="btn-action btn-cancel" id="btn-cerrar-editor">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+<script>
+    const nombresDefecto = [
+        "Doctor Simi", "Dragón Flama", "Alien Humano", "Caballo Loco", 
+        "Oso Cariñoso", "Dinosaurio Rex", "Unicornio Mágico", "Tiburón Azul",
+        "Minion Amarillo", "Spiderman Inflable", "Pikachu Eléctrico", "Sonic Veloz",
+        "Mario Bros", "Luigi Verde", "Shrek Ogro", "Fiona Princesa",
+        "Batman Oscuro", "Iron Man", "Capitán América", "Pantera Negra"
+    ];
+    
+    let inventario = [];
+
+    function cargarInventario() {
+        const datosLocales = localStorage.getItem('inventarioBotargas');
+        if (datosLocales) {
+            inventario = JSON.parse(datosLocales);
+        } else {
+            for (let i = 1; i <= 20; i++) {
+                inventario.push({
+                    id: i,
+                    nombre: nombresDefecto[i - 1] || `Botarga Modelo ${i}`,
+                    precioInicial: 583.33,
+                    stock: 12
+                });
+            }
+            guardarEnStorage();
+        }
+    }
+
+    function guardarEnStorage() {
+        localStorage.setItem('inventarioBotargas', JSON.stringify(inventario));
+    }
+
+    function pintarProductos() {
+        cargarInventario(); // Aseguramos leer lo último
+        const grid = document.getElementById('admin-grid');
+        let contenidoHTML = "";
+
+        inventario.forEach(prod => {
+            const rutaImagen = prod.img_custom ? prod.img_custom : `bo${prod.id}.png`;
+            contenidoHTML += `
+                <div class="admin-card" id="card-${prod.id}">
+                    <div class="admin-card-img"><img src="${rutaImagen}" alt="${prod.nombre}"></div>
+                    <div class="admin-card-info">
+                        <h3>${prod.nombre}</h3>
+                        <p class="admin-stock">Stock: <span id="stock-val-${prod.id}">${prod.stock}</span> pzas</p>
+                        <div class="admin-actions">
+                            <button class="btn-action btn-editar" onclick="abrirEditor(${prod.id})">Editar</button>
+                            <button class="btn-action btn-eliminar" onclick="eliminarProducto(${prod.id})">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        grid.innerHTML = contenidoHTML;
+    }
+
+    // --- Lógica de Edición ---
+    const modal = document.getElementById('edit-modal');
+    const inputPrecio = document.getElementById('edit-precio');
+    const inputGanancia = document.getElementById('edit-precio-ganancia');
+
+    inputPrecio.addEventListener('input', function() {
+        const valor = parseFloat(this.value) || 0;
+        inputGanancia.value = `$ ${(valor * 1.20).toFixed(2)} MXN`;
+    });
+
+    function abrirEditor(id) {
+        const prod = inventario.find(p => p.id === id);
+        if (prod) {
+            document.getElementById('edit-id').value = prod.id;
+            document.getElementById('edit-nombre').value = prod.nombre;
+            document.getElementById('edit-precio').value = prod.precioInicial;
+            inputPrecio.dispatchEvent(new Event('input'));
+            document.getElementById('edit-stock').value = prod.stock;
+            document.getElementById('edit-descripcion').value = prod.descripcion_custom || "";
+            modal.classList.add('active');
+        }
+    }
+
+    document.getElementById('edit-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const id = parseInt(document.getElementById('edit-id').value);
+        const prod = inventario.find(p => p.id === id);
+
+        if (prod) {
+            prod.nombre = document.getElementById('edit-nombre').value;
+            prod.precioInicial = parseFloat(document.getElementById('edit-precio').value);
+            prod.stock = parseInt(document.getElementById('edit-stock').value);
+            prod.descripcion_custom = document.getElementById('edit-descripcion').value;
+
+            // Limpieza de alertas automática
+            if (prod.stock >= 10) {
+                let alertas = JSON.parse(localStorage.getItem('alertasAdmin')) || [];
+                alertas = alertas.filter(a => a.id !== id);
+                localStorage.setItem('alertasAdmin', JSON.stringify(alertas));
+            }
+
+            guardarEnStorage();
+            pintarProductos();
+            revisarAlertas();
+            modal.classList.remove('active');
+        }
+    });
+
+    function eliminarProducto(id) {
+        if (confirm("¿Seguro que deseas eliminar este producto?")) {
+            inventario = inventario.filter(p => p.id !== id);
+            guardarEnStorage();
+            pintarProductos();
+            // Limpiar alerta si existía
+            let alertas = JSON.parse(localStorage.getItem('alertasAdmin')) || [];
+            localStorage.setItem('alertasAdmin', JSON.stringify(alertas.filter(a => a.id !== id)));
+            revisarAlertas();
+        }
+    }
+
+    // --- Lógica de Alertas ---
+    function revisarAlertas() {
+        let alertas = JSON.parse(localStorage.getItem('alertasAdmin')) || [];
+        const contenedor = document.getElementById('contenedor-alertas');
+        const lista = document.getElementById('lista-alertas');
+
+        if (alertas.length > 0 && contenedor) {
+            contenedor.style.display = 'block';
+            lista.innerHTML = alertas.map(a => `
+                <li>El producto <b>${a.nombre}</b> tiene ${a.stockActual} unidades. 
+                    <button onclick="abrirEditor(${a.id})">Editar</button>
+                </li>
+            `).join('');
+        } else if (contenedor) {
+            contenedor.style.display = 'none';
+        }
+    }
+
+    window.addEventListener('storage', (event) => {
+        if (event.key === 'inventarioBotargas') {
+            pintarProductos();
+            revisarAlertas();
+        }
+    });
+
+    // --- Arranque ---
+    document.getElementById('btn-cerrar-editor').addEventListener('click', () => modal.classList.remove('active'));
+    cargarInventario();
+    pintarProductos();
+    revisarAlertas();
+</script>
+    </script>
+</body>
+</html>
